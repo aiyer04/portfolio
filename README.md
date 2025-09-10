@@ -1,7 +1,7 @@
 
-  # Software Engineer Portfolio (Community)
+  # Technical Portfolio
 
-  This is a code bundle for Software Engineer Portfolio (Community). The original project is available at https://www.figma.com/design/62gWRlMhOsjwiCE67KcqqV/Software-Engineer-Portfolio--Community-.
+ The original project is available at https://www.figma.com/design/62gWRlMhOsjwiCE67KcqqV/Software-Engineer-Portfolio--Community-.
 
   ## Running the code
 
