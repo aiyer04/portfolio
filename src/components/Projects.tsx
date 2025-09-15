@@ -25,7 +25,7 @@ export function Projects() {
         "Scikit-learn",
       ],
       githubUrl: null, // No GitHub link yet
-      presentationUrl: "YOUR_SEIZURE_PRESENTATION_URL_HERE", // Add your presentation URL
+      presentationUrl: "https://gtvault-my.sharepoint.com/:p:/g/personal/aiyer329_gatech_edu/EZD6OSRrnWRPut5BgbST8w8BTQ8GwIGoSaeG0FW8tbNwyQ?e=aZquoa", // Add your presentation URL
     },
     {
       title: "HaloFit Project",
