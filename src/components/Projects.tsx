@@ -25,7 +25,7 @@ export function Projects() {
         "Scikit-learn",
       ],
       githubUrl: null, // No GitHub link yet
-      presentationUrl: "YOUR_SEIZURE_PRESENTATION_URL_HERE", // Add your presentation URL
+      presentationUrl: "https://gtvault-my.sharepoint.com/:p:/g/personal/aiyer329_gatech_edu/EZD6OSRrnWRPut5BgbST8w8BTQ8GwIGoSaeG0FW8tbNwyQ?e=aZquoa" // Add your presentation URL
     },
     {
       title: "HaloFit Project",
@@ -33,9 +33,20 @@ export function Projects() {
         "Fitness tracking application with gamification elements",
       image:
         "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-      technologies: ["React", "Node.js", "MongoDB", "Express"],
+      technologies: ["React", "Node.js", "TypeScript"],
       githubUrl:
-        "https://github.com/aiyer04/ECE4014-HaloFit.git", // Add your GitHub URL
+        "https://github.com/taniabinu15/halofit", // Add your GitHub URL
+      presentationUrl: null, // No presentation yet
+    },
+    {
+      title: "React Weather App",
+      description:
+        "A React app that fetches and displays real-time weather data",
+      image:
+        "/assets/weather-app.png",
+      technologies: ["React", "HTML", "CSS"],
+      githubUrl:
+        "https://github.com/aiyer04/Weather-App-with-React", // Add your GitHub URL
       presentationUrl: null, // No presentation yet
     },
     // Future projects can have both or either
