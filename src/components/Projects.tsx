@@ -8,25 +8,9 @@ import {
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Github, ExternalLink } from "lucide-react";
-import { useState, useEffect } from "react";
-import { createPortal } from "react-dom";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import weatherImg from "../assets/weather-app.png";
 
 export function Projects() {
-  const [openCaseStudy, setOpenCaseStudy] = useState<any | null>(null);
-
-  useEffect(() => {
-    // Lock body scroll when modal is open
-    if (openCaseStudy) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = prev || "";
-      };
-    }
-    return;
-  }, [openCaseStudy]);
   const projects = [
     {
       title: "Seizure Prediction Project",
@@ -41,7 +25,7 @@ export function Projects() {
         "Scikit-learn",
       ],
       githubUrl: null, // No GitHub link yet
-      presentationUrl: "https://gtvault.sharepoint.com/:p:/r/sites/ECE4782Group3/_layouts/15/Doc2.aspx?action=edit&sourcedoc=%7Bbd6525f4-a502-41aa-ab13-666c15bfabfb%7D&wdOrigin=TEAMS-MAGLEV.teamsSdk_ns.rwc&wdExp=TEAMS-TREATMENT&wdhostclicktime=1759359897925&web=1", // Add your presentation URL
+      presentationUrl: "YOUR_SEIZURE_PRESENTATION_URL_HERE", // Add your presentation URL
     },
     {
       title: "HaloFit Project",
@@ -59,80 +43,11 @@ export function Projects() {
       description:
         "A React app that fetches and displays real-time weather data",
       image:
-        weatherImg,
+        "/assets/weather-app.png",
       technologies: ["React", "HTML", "CSS"],
       githubUrl:
         "https://github.com/aiyer04/Weather-App-with-React", // Add your GitHub URL
       presentationUrl: null, // No presentation yet
-    },
-    {
-      title: "Discount Compiler Chrome Extension Case Study",
-      description:
-        "A Chrome extension that helps users, particularly students,find discounts while shopping online",
-      image:
-        weatherImg,
-      technologies: ["TypeScript", "HTML", "CSS"],
-      githubUrl:
-        "https://github.com/aiyer04/discount-compiler-extension.git", // Add your GitHub URL
-      presentationUrl: null, // No presentation yet
-      caseStudy: {
-        id: "discount-compiler",
-        title: "Discount Compiler — Case Study",
-        overview:
-          "A chrome extension that automatically finds discount codes and coupons while users are shopping online, tailored for student budgets.",
-        problem:
-          "Students frequently miss available discounts or waste time searching for coupon codes across multiple sites.",
-        approach:
-          "Built a lightweight extension using TypeScript that detects retailers on the page, searches a curated coupon database and public sources, and surfaces verified codes in a compact UI. Implemented metrics tracking (opt-in) to measure success rate and false positives.",
-        results:
-          "Improved coupon discovery rate by 42% in user testing and reduced average time-to-checkout by 18% for participants.",
-      },
-    },
-    {
-      title: "Spotify Study Playlist Optimizer Case Study",
-      description:
-        "A feature developed to be used within Spotify that curates Spotify playlists based on study techniques and user preferences",
-      image:
-        weatherImg,
-      technologies: ["TypeScript", "HTML", "CSS", "React"],
-      githubUrl:
-        "https://github.com/aiyer04/spotify-study-playlist.git", // Add your GitHub URL
-      presentationUrl: null, // No presentation yet
-      caseStudy: {
-        id: "spotify-study",
-        title: "Spotify Study Playlist Optimizer — Case Study",
-        overview:
-          "An algorithm and UI that curates study playlists based on cognitive load research and personal preference signals.",
-        problem:
-          "Many students struggle to find music that helps them focus; existing playlists are generic and not personalized to study techniques.",
-        approach:
-          "Created an optimization pipeline that combines tempo, energy, and user feedback to assemble session-based playlists; integrated A/B testing to measure focus improvements.",
-        results:
-          "User-reported focus increased by 28% during timed study sessions; retention of the feature in pilot was 67% across two weeks.",
-      },
-    },
-    {
-      title: "Custom Meal Plan Generator App Case Study",
-      description:
-        "A React app that generates personalized meal plans based on user preferences and dietary restrictions",
-      image:
-        "/assets/weather-app.png",
-      technologies: ["React", "HTML", "CSS"],
-      githubUrl:
-        "https://github.com/aiyer04/Custom-Meal-Prep.git", // Add your GitHub URL
-      presentationUrl: null, // No presentation yet
-      caseStudy: {
-        id: "meal-plan",
-        title: "Custom Meal Plan Generator — Case Study",
-        overview:
-          "Personalized meal plan generator that accounts for allergies, preferences, and goals and produces weekly shopping lists and recipes.",
-        problem:
-          "Users found it difficult to consistently follow meal plans due to rigid recommendations and lack of preference handling.",
-        approach:
-          "Designed a flexible constraint-satisfaction backend with adjustable preference weights and a client-side UI to edit and preview weekly plans. Added recipe substitution suggestions to increase adherence.",
-        results:
-          "Pilot users reported a 35% higher adherence rate to meal plans and a 22% reduction in food waste over four weeks.",
-      },
     },
     // Future projects can have both or either
     // {
@@ -212,62 +127,12 @@ export function Projects() {
                       </a>
                     </Button>
                   )}
-                  {project.caseStudy && (
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => setOpenCaseStudy(project.caseStudy)}
-                    >
-                      View Case Study
-                    </Button>
-                  )}
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
       </div>
-      {openCaseStudy && createPortal(
-        <div className="fixed inset-0 z-[99999]">
-          {/* solid backdrop covering entire viewport */}
-          <div
-            className="absolute inset-0 bg-white dark:bg-slate-900"
-            onClick={() => setOpenCaseStudy(null)}
-          />
-
-          {/* full-screen modal panel (scrolls internally) */}
-          <div className="absolute inset-0 z-[100000] overflow-auto">
-            <div className="min-h-screen w-full bg-white dark:bg-slate-900 p-6">
-              <div className="flex items-start justify-between mb-4">
-                <h3 className="text-xl font-semibold">{openCaseStudy.title}</h3>
-                <Button size="sm" variant="ghost" onClick={() => setOpenCaseStudy(null)}>
-                  Close
-                </Button>
-              </div>
-              <div className="space-y-4 text-sm">
-                <section>
-                  <h4 className="font-medium">Overview</h4>
-                  <p>{openCaseStudy.overview}</p>
-                </section>
-                <section>
-                  <h4 className="font-medium">Problem</h4>
-                  <p>{openCaseStudy.problem}</p>
-                </section>
-                <section>
-                  <h4 className="font-medium">Approach</h4>
-                  <p>{openCaseStudy.approach}</p>
-                </section>
-                <section>
-                  <h4 className="font-medium">Results</h4>
-                  <p>{openCaseStudy.results}</p>
-                </section>
-              </div>
-            </div>
-          </div>
-        </div>,
-        // attach modal to document.body to avoid stacking-context issues
-        typeof document !== "undefined" ? document.body : document.createElement('div')
-      )}
     </section>
   );
 }
