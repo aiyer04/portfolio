@@ -1,13 +1,6 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
-import { Badge } from "./ui/badge";
+import React fromimport { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import type { MouseEvent } from "react";
 import { createPortal } from "react-dom";
@@ -121,29 +114,6 @@ export function Projects() {
           "User-reported focus increased by 28% during timed study sessions; retention of the feature in pilot was 67% across two weeks.",
       },
     },
-    {
-      title: "Custom Meal Plan Generator App Case Study",
-      description:
-        "A React app that generates personalized meal plans based on user preferences and dietary restrictions",
-      image:
-        "/assets/weather-app.png",
-      technologies: ["React", "HTML", "CSS"],
-      githubUrl:
-        "https://github.com/aiyer04/Custom-Meal-Prep.git", // Add your GitHub URL
-      presentationUrl: null, // No presentation yet
-      caseStudy: {
-        id: "meal-plan",
-        title: "Custom Meal Plan Generator — Case Study",
-        overview:
-          "Personalized meal plan generator that accounts for allergies, preferences, and goals and produces weekly shopping lists and recipes.",
-        problem:
-          "Users found it difficult to consistently follow meal plans due to rigid recommendations and lack of preference handling.",
-        approach:
-          "Designed a flexible constraint-satisfaction backend with adjustable preference weights and a client-side UI to edit and preview weekly plans. Added recipe substitution suggestions to increase adherence.",
-        results:
-          "Pilot users reported a 35% higher adherence rate to meal plans and a 22% reduction in food waste over four weeks.",
-      },
-    },
     // Future projects can have both or either
     // {
     //   title: "Future Project",
@@ -248,21 +218,21 @@ export function Projects() {
           {/* full-screen modal panel (scrolls internally) */}
           <div className="absolute inset-0 z-[100000] overflow-auto" onClick={(e: MouseEvent) => e.stopPropagation()}>
             <div className="min-h-screen w-full bg-white dark:bg-slate-900 p-6" onClick={(e: MouseEvent) => e.stopPropagation()}>
-                <div className="relative mb-4">
-                  <h3 className="text-xl font-semibold">{openCaseStudy.title}</h3>
-                  {/* explicit top-right close button to ensure it receives clicks */}
-                  <button
-                    type="button"
-                    aria-label="Close case study"
-                    onClick={(e: MouseEvent) => {
-                      e.stopPropagation();
-                      setOpenCaseStudy(null);
-                    }}
-                    className="absolute right-0 top-0 -mt-2 -mr-2 inline-flex items-center justify-center h-8 w-8 rounded-full text-sm hover:bg-slate-100 dark:hover:bg-slate-700 z-[100001] pointer-events-auto"
-                  >
-                    ×
-                  </button>
-                </div>
+              <div className="flex items-center justify-between mb-6 sticky top-0 bg-white dark:bg-slate-900 py-2 border-b">
+                <h3 className="text-xl font-semibold">{openCaseStudy.title}</h3>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={(e: MouseEvent) => {
+                    e.stopPropagation();
+                    setOpenCaseStudy(null);
+                  }}
+                  className="ml-4 hover:bg-slate-100 dark:hover:bg-slate-800"
+                >
+                  <X className="h-5 w-5" />
+                  <span className="sr-only">Close case study</span>
+                </Button>
+              </div>
               <div className="space-y-4 text-sm">
                 <section>
                   <h4 className="font-medium">Overview</h4>
