@@ -8,11 +8,23 @@ import {
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Github, ExternalLink } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 export function Projects() {
   const [openCaseStudy, setOpenCaseStudy] = useState<any | null>(null);
+
+  useEffect(() => {
+    // Lock body scroll when modal is open
+    if (openCaseStudy) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev || "";
+      };
+    }
+    return;
+  }, [openCaseStudy]);
   const projects = [
     {
       title: "Seizure Prediction Project",
@@ -214,12 +226,12 @@ export function Projects() {
         </div>
       </div>
       {openCaseStudy && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center">
           <div
-            className="absolute inset-0 bg-white dark:bg-slate-900"
+            className="absolute inset-0 bg-white dark:bg-slate-900 opacity-100"
             onClick={() => setOpenCaseStudy(null)}
           />
-          <div className="relative bg-white dark:bg-slate-900 rounded-lg shadow-lg max-w-3xl w-full mx-4 p-6 overflow-auto max-h-[80vh]">
+          <div className="relative z-[10000] bg-white dark:bg-slate-900 rounded-lg shadow-lg max-w-3xl w-full mx-4 p-6 overflow-auto max-h-[80vh]">
             <div className="flex items-start justify-between mb-4">
               <h3 className="text-xl font-semibold">{openCaseStudy.title}</h3>
               <Button size="sm" variant="ghost" onClick={() => setOpenCaseStudy(null)}>
