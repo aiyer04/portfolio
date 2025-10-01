@@ -10,6 +10,7 @@ import { Button } from "./ui/button";
 import { Github, ExternalLink } from "lucide-react";
 import { useState, useEffect } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import weatherImg from "../assets/weather-app.png";
 
 export function Projects() {
   const [openCaseStudy, setOpenCaseStudy] = useState<any | null>(null);
@@ -57,7 +58,7 @@ export function Projects() {
       description:
         "A React app that fetches and displays real-time weather data",
       image:
-        "/assets/weather-app.png",
+        weatherImg,
       technologies: ["React", "HTML", "CSS"],
       githubUrl:
         "https://github.com/aiyer04/Weather-App-with-React", // Add your GitHub URL
@@ -68,7 +69,7 @@ export function Projects() {
       description:
         "A Chrome extension that helps users, particularly students,find discounts while shopping online",
       image:
-        "/assets/weather-app.png",
+        weatherImg,
       technologies: ["TypeScript", "HTML", "CSS"],
       githubUrl:
         "https://github.com/aiyer04/discount-compiler-extension.git", // Add your GitHub URL
@@ -91,7 +92,7 @@ export function Projects() {
       description:
         "A feature developed to be used within Spotify that curates Spotify playlists based on study techniques and user preferences",
       image:
-        "/assets/weather-app.png",
+        weatherImg,
       technologies: ["TypeScript", "HTML", "CSS", "React"],
       githubUrl:
         "https://github.com/aiyer04/spotify-study-playlist.git", // Add your GitHub URL
@@ -226,12 +227,12 @@ export function Projects() {
         </div>
       </div>
       {openCaseStudy && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center">
           <div
-            className="absolute inset-0 bg-white dark:bg-slate-900 opacity-100"
+            className="fixed inset-0 bg-white dark:bg-slate-900"
             onClick={() => setOpenCaseStudy(null)}
           />
-          <div className="relative z-[10000] bg-white dark:bg-slate-900 rounded-lg shadow-lg max-w-3xl w-full mx-4 p-6 overflow-auto max-h-[80vh]">
+          <div className="relative z-[100000] bg-white dark:bg-slate-900 rounded-lg shadow-lg max-w-3xl w-full mx-4 p-6 overflow-auto max-h-[80vh]">
             <div className="flex items-start justify-between mb-4">
               <h3 className="text-xl font-semibold">{openCaseStudy.title}</h3>
               <Button size="sm" variant="ghost" onClick={() => setOpenCaseStudy(null)}>
