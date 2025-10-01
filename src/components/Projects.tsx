@@ -9,6 +9,7 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Github, ExternalLink } from "lucide-react";
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import weatherImg from "../assets/weather-app.png";
 
@@ -226,39 +227,46 @@ export function Projects() {
           ))}
         </div>
       </div>
-      {openCaseStudy && (
-        <div className="fixed inset-0 z-[99999] flex items-center justify-center">
+      {openCaseStudy && createPortal(
+        <div className="fixed inset-0 z-[99999]">
+          {/* solid backdrop covering entire viewport */}
           <div
-            className="fixed inset-0 bg-white dark:bg-slate-900"
+            className="absolute inset-0 bg-white dark:bg-slate-900"
             onClick={() => setOpenCaseStudy(null)}
           />
-          <div className="relative z-[100000] bg-white dark:bg-slate-900 rounded-lg shadow-lg max-w-3xl w-full mx-4 p-6 overflow-auto max-h-[80vh]">
-            <div className="flex items-start justify-between mb-4">
-              <h3 className="text-xl font-semibold">{openCaseStudy.title}</h3>
-              <Button size="sm" variant="ghost" onClick={() => setOpenCaseStudy(null)}>
-                Close
-              </Button>
-            </div>
-            <div className="space-y-4 text-sm">
-              <section>
-                <h4 className="font-medium">Overview</h4>
-                <p>{openCaseStudy.overview}</p>
-              </section>
-              <section>
-                <h4 className="font-medium">Problem</h4>
-                <p>{openCaseStudy.problem}</p>
-              </section>
-              <section>
-                <h4 className="font-medium">Approach</h4>
-                <p>{openCaseStudy.approach}</p>
-              </section>
-              <section>
-                <h4 className="font-medium">Results</h4>
-                <p>{openCaseStudy.results}</p>
-              </section>
+
+          {/* full-screen modal panel (scrolls internally) */}
+          <div className="absolute inset-0 z-[100000] overflow-auto">
+            <div className="min-h-screen w-full bg-white dark:bg-slate-900 p-6">
+              <div className="flex items-start justify-between mb-4">
+                <h3 className="text-xl font-semibold">{openCaseStudy.title}</h3>
+                <Button size="sm" variant="ghost" onClick={() => setOpenCaseStudy(null)}>
+                  Close
+                </Button>
+              </div>
+              <div className="space-y-4 text-sm">
+                <section>
+                  <h4 className="font-medium">Overview</h4>
+                  <p>{openCaseStudy.overview}</p>
+                </section>
+                <section>
+                  <h4 className="font-medium">Problem</h4>
+                  <p>{openCaseStudy.problem}</p>
+                </section>
+                <section>
+                  <h4 className="font-medium">Approach</h4>
+                  <p>{openCaseStudy.approach}</p>
+                </section>
+                <section>
+                  <h4 className="font-medium">Results</h4>
+                  <p>{openCaseStudy.results}</p>
+                </section>
+              </div>
             </div>
           </div>
-        </div>
+        </div>,
+        // attach modal to document.body to avoid stacking-context issues
+        typeof document !== "undefined" ? document.body : document.createElement('div')
       )}
     </section>
   );
