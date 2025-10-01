@@ -9,9 +9,9 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Github, ExternalLink } from "lucide-react";
 import { useState, useEffect } from "react";
+import type { MouseEvent } from "react";
 import { createPortal } from "react-dom";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import weatherImg from "../assets/weather-app.png";
 
 export function Projects() {
   const [openCaseStudy, setOpenCaseStudy] = useState<any | null>(null);
@@ -69,7 +69,7 @@ export function Projects() {
       description:
         "A React app that fetches and displays real-time weather data",
       image:
-        weatherImg,
+        "/assets/weather-app.png",
       technologies: ["React", "HTML", "CSS"],
       githubUrl:
         "https://github.com/aiyer04/Weather-App-with-React", // Add your GitHub URL
@@ -80,7 +80,7 @@ export function Projects() {
       description:
         "A Chrome extension that helps users, particularly students,find discounts while shopping online",
       image:
-        weatherImg,
+        "/assets/weather-app.png",
       technologies: ["TypeScript", "HTML", "CSS"],
       githubUrl:
         "https://github.com/aiyer04/discount-compiler-extension.git", // Add your GitHub URL
@@ -103,7 +103,7 @@ export function Projects() {
       description:
         "A feature developed to be used within Spotify that curates Spotify playlists based on study techniques and user preferences",
       image:
-        weatherImg,
+        "/assets/weather-app.png",
       technologies: ["TypeScript", "HTML", "CSS", "React"],
       githubUrl:
         "https://github.com/aiyer04/spotify-study-playlist.git", // Add your GitHub URL
@@ -246,15 +246,15 @@ export function Projects() {
           />
 
           {/* full-screen modal panel (scrolls internally) */}
-          <div className="absolute inset-0 z-[100000] overflow-auto" onClick={(e) => e.stopPropagation()}>
-            <div className="min-h-screen w-full bg-white dark:bg-slate-900 p-6" onClick={(e) => e.stopPropagation()}>
+          <div className="absolute inset-0 z-[100000] overflow-auto" onClick={(e: MouseEvent) => e.stopPropagation()}>
+            <div className="min-h-screen w-full bg-white dark:bg-slate-900 p-6" onClick={(e: MouseEvent) => e.stopPropagation()}>
                 <div className="relative mb-4">
                   <h3 className="text-xl font-semibold">{openCaseStudy.title}</h3>
                   {/* explicit top-right close button to ensure it receives clicks */}
                   <button
                     type="button"
                     aria-label="Close case study"
-                    onClick={(e) => {
+                    onClick={(e: MouseEvent) => {
                       e.stopPropagation();
                       setOpenCaseStudy(null);
                     }}
