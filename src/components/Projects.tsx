@@ -1,35 +1,17 @@
-import React fromimport { Badge } from "./ui/badge";
+import {useState} from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Github, ExternalLink, X } from "lucide-react";
-import { useState, useEffect } from "react";
-import type { MouseEvent } from "react";
-import { createPortal } from "react-dom";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 export function Projects() {
-  const [openCaseStudy, setOpenCaseStudy] = useState<any | null>(null);
-
-  useEffect(() => {
-    // Lock body scroll when modal is open
-    if (openCaseStudy) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = prev || "";
-      };
-    }
-    return;
-  }, [openCaseStudy]);
-
-  // Close modal on Escape key for accessibility and as a reliable fallback
-  useEffect(() => {
-    if (!openCaseStudy) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape" || e.key === "Esc") setOpenCaseStudy(null);
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [openCaseStudy]);
   const projects = [
     {
       title: "Seizure Prediction Project",
@@ -44,7 +26,8 @@ export function Projects() {
         "Scikit-learn",
       ],
       githubUrl: null, // No GitHub link yet
-      presentationUrl: "https://gtvault.sharepoint.com/:p:/r/sites/ECE4782Group3/_layouts/15/Doc2.aspx?action=edit&sourcedoc=%7Bbd6525f4-a502-41aa-ab13-666c15bfabfb%7D&wdOrigin=TEAMS-MAGLEV.teamsSdk_ns.rwc&wdExp=TEAMS-TREATMENT&wdhostclicktime=1759359897925&web=1", // Add your presentation URL
+      presentationUrl: "https://gtvault.sharepoint.com/:p:/s/ECE4782Group3/EfQlZb0CpapBqxNmbBW_q_sBcvVffvddlO70bkSXIfc9pA?e=dAFFu1", // Add your presentation URL
+      caseStudyURL: null,
     },
     {
       title: "HaloFit Project",
@@ -56,63 +39,46 @@ export function Projects() {
       githubUrl:
         "https://github.com/taniabinu15/halofit", // Add your GitHub URL
       presentationUrl: null, // No presentation yet
+      caseStudyURL: null,
     },
     {
       title: "React Weather App",
       description:
         "A React app that fetches and displays real-time weather data",
       image:
-        "/assets/weather-app.png",
+        "src/assets/weather-app.png",
       technologies: ["React", "HTML", "CSS"],
       githubUrl:
         "https://github.com/aiyer04/Weather-App-with-React", // Add your GitHub URL
       presentationUrl: null, // No presentation yet
+      caseStudyURL: null,
     },
     {
-      title: "Discount Compiler Chrome Extension Case Study",
-      description:
-        "A Chrome extension that helps users, particularly students,find discounts while shopping online",
-      image:
-        "/assets/weather-app.png",
-      technologies: ["TypeScript", "HTML", "CSS"],
-      githubUrl:
-        "https://github.com/aiyer04/discount-compiler-extension.git", // Add your GitHub URL
-      presentationUrl: null, // No presentation yet
-      caseStudy: {
-        id: "discount-compiler",
-        title: "Discount Compiler — Case Study",
-        overview:
-          "A chrome extension that automatically finds discount codes and coupons while users are shopping online, tailored for student budgets.",
-        problem:
-          "Students frequently miss available discounts or waste time searching for coupon codes across multiple sites.",
-        approach:
-          "Built a lightweight extension using TypeScript that detects retailers on the page, searches a curated coupon database and public sources, and surfaces verified codes in a compact UI. Implemented metrics tracking (opt-in) to measure success rate and false positives.",
-        results:
-          "Improved coupon discovery rate by 42% in user testing and reduced average time-to-checkout by 18% for participants.",
-      },
+      title: "Discount Compiler Extension Case Study",
+      description: "A detailed analysis of the Discount Compiler extension, its architecture, and implementation considerations.",
+      image: "src/assets/discount.png",
+      technologies: ["TypeScript", "React", "Chrome Extensions"],
+      githubUrl: "https://github.com/aiyer04/discount-compiler-extension",
+      presentationUrl: null,
+      caseStudyURL: "https://aiyer04.github.io/discount-compiler-extension/case-study.html",
     },
     {
-      title: "Spotify Study Playlist Optimizer Case Study",
-      description:
-        "A feature developed to be used within Spotify that curates Spotify playlists based on study techniques and user preferences",
-      image:
-        "/assets/weather-app.png",
-      technologies: ["TypeScript", "HTML", "CSS", "React"],
-      githubUrl:
-        "https://github.com/aiyer04/spotify-study-playlist.git", // Add your GitHub URL
-      presentationUrl: null, // No presentation yet
-      caseStudy: {
-        id: "spotify-study",
-        title: "Spotify Study Playlist Optimizer — Case Study",
-        overview:
-          "An algorithm and UI that curates study playlists based on cognitive load research and personal preference signals.",
-        problem:
-          "Many students struggle to find music that helps them focus; existing playlists are generic and not personalized to study techniques.",
-        approach:
-          "Created an optimization pipeline that combines tempo, energy, and user feedback to assemble session-based playlists; integrated A/B testing to measure focus improvements.",
-        results:
-          "User-reported focus increased by 28% during timed study sessions; retention of the feature in pilot was 67% across two weeks.",
-      },
+      title: "Spotify Study Plan Optimizer Case Study",
+      description: "A detailed analysis of the Spotify Study Plan Optimizer, its architecture, and implementation considerations.",
+      image: "src/assets/spotify.png",
+      technologies: ["TypeScript", "React", "Product Management"],
+      githubUrl: "https://github.com/aiyer04/spotify-study-playlist",
+      presentationUrl: null,
+      caseStudyURL: "https://aiyer04.github.io/spotify-study-playlist/case-study.html",
+    },
+    {
+      title: "Custom Meal Plan App Case Study",
+      description: "A detailed analysis of the Custom Meal Plan App, its architecture, and implementation considerations.",
+      image: "src/assets/meal.png",
+      technologies: ["JavaScript", "React", "Product Management", "Mobile App Development"],
+      githubUrl: "https://github.com/aiyer04/Custom-Meal-Prep",
+      presentationUrl: null,
+      caseStudyURL: "https://aiyer04.github.io/Custom-Meal-Prep/case-study.html",
     },
     // Future projects can have both or either
     // {
@@ -126,12 +92,10 @@ export function Projects() {
   ];
 
   return (
-    <section id="projects" className="py-20 bg-muted/30">
+    <section id="projects" className="py-20 bg-muted/30 relative">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl mb-4">
-            Featured Projects
-          </h2>
+          <h2 className="text-3xl lg:text-4xl mb-4">Featured Projects</h2>
         </div>
         <div className="grid lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
@@ -149,23 +113,19 @@ export function Projects() {
               </div>
               <CardHeader>
                 <CardTitle>{project.title}</CardTitle>
-                <CardDescription>
-                  {project.description}
-                </CardDescription>
+                <CardDescription>{project.description}</CardDescription>
               </CardHeader>
               <CardContent className="pt-0">
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map(
-                    (tech, techIndex) => (
-                      <Badge
-                        key={techIndex}
-                        variant="outline"
-                        className="text-xs"
-                      >
-                        {tech}
-                      </Badge>
-                    ),
-                  )}
+                  {project.technologies.map((tech, techIndex) => (
+                    <Badge
+                      key={techIndex}
+                      variant="outline"
+                      className="text-xs"
+                    >
+                      {tech}
+                    </Badge>
+                  ))}
                 </div>
                 <div className="flex gap-2">
                   {project.githubUrl && (
@@ -192,13 +152,16 @@ export function Projects() {
                       </a>
                     </Button>
                   )}
-                  {project.caseStudy && (
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => setOpenCaseStudy(project.caseStudy)}
-                    >
-                      View Case Study
+                  {project.caseStudyURL && (
+                    <Button size="sm" asChild>
+                      <a
+                        href={project.caseStudyURL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        Case Study
+                      </a>
                     </Button>
                   )}
                 </div>
@@ -207,56 +170,6 @@ export function Projects() {
           ))}
         </div>
       </div>
-      {openCaseStudy && createPortal(
-        <div className="fixed inset-0 z-[99999]">
-          {/* solid backdrop covering entire viewport */}
-          <div
-            className="absolute inset-0 bg-white dark:bg-slate-900"
-            onClick={() => setOpenCaseStudy(null)}
-          />
-
-          {/* full-screen modal panel (scrolls internally) */}
-          <div className="absolute inset-0 z-[100000] overflow-auto" onClick={(e: MouseEvent) => e.stopPropagation()}>
-            <div className="min-h-screen w-full bg-white dark:bg-slate-900 p-6" onClick={(e: MouseEvent) => e.stopPropagation()}>
-              <div className="flex items-center justify-between mb-6 sticky top-0 bg-white dark:bg-slate-900 py-2 border-b">
-                <h3 className="text-xl font-semibold">{openCaseStudy.title}</h3>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={(e: MouseEvent) => {
-                    e.stopPropagation();
-                    setOpenCaseStudy(null);
-                  }}
-                  className="ml-4 hover:bg-slate-100 dark:hover:bg-slate-800"
-                >
-                  <X className="h-5 w-5" />
-                  <span className="sr-only">Close case study</span>
-                </Button>
-              </div>
-              <div className="space-y-4 text-sm">
-                <section>
-                  <h4 className="font-medium">Overview</h4>
-                  <p>{openCaseStudy.overview}</p>
-                </section>
-                <section>
-                  <h4 className="font-medium">Problem</h4>
-                  <p>{openCaseStudy.problem}</p>
-                </section>
-                <section>
-                  <h4 className="font-medium">Approach</h4>
-                  <p>{openCaseStudy.approach}</p>
-                </section>
-                <section>
-                  <h4 className="font-medium">Results</h4>
-                  <p>{openCaseStudy.results}</p>
-                </section>
-              </div>
-            </div>
-          </div>
-        </div>,
-        // attach modal to document.body to avoid stacking-context issues
-        typeof document !== "undefined" ? document.body : document.createElement('div')
-      )}
     </section>
   );
 }
