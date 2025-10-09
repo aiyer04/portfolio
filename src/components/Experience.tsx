@@ -7,7 +7,15 @@ import {
 } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { Calendar, MapPin } from "lucide-react";
+import { Calendar, MapPin, Download } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  FadeInUp,
+  SlideInLeft,
+  SlideInRight,
+  StaggeredContainer,
+  StaggeredItem,
+} from "./ScrollAnimations";
 
 export function Experience() {
   const experiences = [
@@ -46,97 +54,146 @@ export function Experience() {
   ];
 
   return (
-    <section id="experience" className="py-20">
+    <section id="experience" className="py-20 bg-muted/20">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <FadeInUp className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl mb-4">
             Experience
           </h2>
-          <div className="max-w-7xl mx-auto px-8">
-            <div className="text-center space-y-12">
-              <div className="space-y-6">
-                <Button
-                  asChild
-                  className="bg-primary text-primary-foreground hover:bg-primary/90"
-                >
-                  <a
-                    href="https://drive.google.com/file/d/1C0vff2yxyaWaaamdUF_6Nxkaz27PSx5n/view?usp=sharing"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Download Resume
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
+          <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-primary/20 to-transparent mx-auto mb-8" />
+
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button
+              asChild
+              className="bg-primary text-black hover:bg-primary/90 glass-effect cursor-hover px-8 py-6"
+            >
+              <a
+                href="https://drive.google.com/file/d/1C0vff2yxyaWaaamdUF_6Nxkaz27PSx5n/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Download className="mr-2 h-5 w-5" />
+                Download Resume
+              </a>
+            </Button>
+          </motion.div>
+        </FadeInUp>
 
         <div className="max-w-4xl mx-auto">
           <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-border transform md:-translate-x-0.5"></div>
+            {/* Enhanced Timeline line */}
+            <motion.div
+              className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent transform md:-translate-x-0.5"
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+              viewport={{ once: true }}
+            />
 
-            <div className="space-y-12">
+            <StaggeredContainer className="space-y-12">
               {experiences.map((experience, index) => (
                 <div key={index} className="relative">
-                  {/* Timeline dot */}
-                  <div className="absolute left-2 md:left-1/2 w-4 h-4 bg-primary rounded-full transform md:-translate-x-2 flex items-center justify-center">
-                    <div className="w-2 h-2 bg-background rounded-full"></div>
-                  </div>
+                  {/* Enhanced Timeline dot */}
+                  <motion.div
+                    className="absolute left-2 md:left-1/2 w-4 h-4 bg-primary rounded-full transform md:-translate-x-2 flex items-center justify-center shadow-lg"
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: index * 0.2,
+                      type: "spring",
+                      stiffness: 200,
+                    }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.2 }}
+                  >
+                    <motion.div
+                      className="w-2 h-2 bg-background rounded-full"
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                      }}
+                    />
+                  </motion.div>
 
-                  <div
+                  <StaggeredItem
                     className={`ml-12 md:ml-0 md:w-1/2 ${index % 2 === 0 ? "md:pr-8" : "md:ml-auto md:pl-8"}`}
                   >
-                    <Card>
-                      <CardHeader>
-                        <div className="flex items-start justify-between mb-2">
-                          <div>
-                            <CardTitle className="text-lg">
-                              {experience.title}
-                            </CardTitle>
-                            <CardDescription className="text-primary">
-                              {experience.company}
-                            </CardDescription>
+                    <motion.div
+                      whileHover={{ y: -5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Card className="animated-border glass-effect cursor-hover">
+                        <CardHeader>
+                          <div className="flex items-start justify-between mb-2">
+                            <div>
+                              <CardTitle className="text-lg">
+                                {experience.title}
+                              </CardTitle>
+                              <CardDescription className="text-primary font-medium">
+                                {experience.company}
+                              </CardDescription>
+                            </div>
                           </div>
-                        </div>
 
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-muted-foreground">
-                          <div className="flex items-center gap-1">
-                            <Calendar className="h-4 w-4" />
-                            {experience.period}
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-muted-foreground">
+                            <div className="flex items-center gap-1">
+                              <Calendar className="h-4 w-4" />
+                              {experience.period}
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <MapPin className="h-4 w-4" />
+                              {experience.location}
+                            </div>
                           </div>
-                          <div className="flex items-center gap-1">
-                            <MapPin className="h-4 w-4" />
-                            {experience.location}
+                        </CardHeader>
+
+                        <CardContent>
+                          <p className="text-muted-foreground mb-4 leading-relaxed">
+                            {experience.description}
+                          </p>
+
+                          <div className="flex flex-wrap gap-2">
+                            {experience.technologies.map(
+                              (tech, techIndex) => (
+                                <motion.div
+                                  key={techIndex}
+                                  initial={{
+                                    opacity: 0,
+                                    scale: 0.8,
+                                  }}
+                                  whileInView={{
+                                    opacity: 1,
+                                    scale: 1,
+                                  }}
+                                  transition={{
+                                    delay: techIndex * 0.1,
+                                    type: "spring",
+                                    stiffness: 200,
+                                  }}
+                                  whileHover={{ scale: 1.1 }}
+                                >
+                                  <Badge
+                                    variant="secondary"
+                                    className="text-xs magnetic-hover"
+                                  >
+                                    {tech}
+                                  </Badge>
+                                </motion.div>
+                              ),
+                            )}
                           </div>
-                        </div>
-                      </CardHeader>
-
-                      <CardContent>
-                        <p className="text-muted-foreground mb-4">
-                          {experience.description}
-                        </p>
-
-                        <div className="flex flex-wrap gap-2">
-                          {experience.technologies.map(
-                            (tech, techIndex) => (
-                              <Badge
-                                key={techIndex}
-                                variant="secondary"
-                                className="text-xs"
-                              >
-                                {tech}
-                              </Badge>
-                            ),
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  </StaggeredItem>
                 </div>
               ))}
-            </div>
+            </StaggeredContainer>
           </div>
         </div>
       </div>
